@@ -173,10 +173,9 @@ private extension ExpandableCollectionViewManager {
                 switch menuItem {
                 case let folder as Folder:
                     self.configure(cell, folder: folder)
-                    try? folder.imageName.tryUnwrap { cell.itemImageName = $0 }
+                    cell.image = folder.image ?? UIImage(systemName: folder.imageName ?? "folder")
                 case menuItem as Item:
-                    try? menuItem.imageName.tryUnwrap { cell.itemImageName = $0 }
-                    
+                    cell.image = menuItem.image ?? UIImage(systemName: menuItem.imageName ?? "doc")
                     cell.subitemsLabel.text = nil
                     cell.isGroup = false
                 default:
