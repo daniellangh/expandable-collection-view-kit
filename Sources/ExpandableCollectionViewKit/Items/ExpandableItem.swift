@@ -133,4 +133,11 @@ public extension ExpandableItem {
         self.tintColor = tintColor
         return self
     }
+
+    @objc
+    @discardableResult
+    func setUserInfo(_ userInfo: Any?) -> Self {
+        self.userInfo = userInfo
+        return self
+    }
 }
