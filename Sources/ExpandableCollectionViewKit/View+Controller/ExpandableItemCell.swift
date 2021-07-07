@@ -20,7 +20,8 @@ final class ExpandableItemCell: UICollectionViewCell, ReuseIdentifiable {
     let subitemsLabel = UILabel()
     let containerView = UIView()
     let chevronImageView = UIImageView()
-    let typeImage = UIImageView()
+    let iconImageView = UIImageView()
+    let selectionView = UIView()
     var subitems: Int = 0
     
     var isChevronVisible: Bool = true {
@@ -35,24 +36,17 @@ final class ExpandableItemCell: UICollectionViewCell, ReuseIdentifiable {
         }
     }
     
-    var itemImageName: String = "" {
+    var image: UIImage? {
         didSet {
-            let name = itemImageName
-            guard
-                name != oldValue,
-                let image = UIImage(systemName: name) else { return }
-            itemImage = image
-            typeImage.image = image
+            iconImageView.image = image
         }
     }
-
-    var itemTintColor: UIColor = .systemTeal {
+    
+    var itemTintColor: UIColor? {
         didSet {
             updateTypeImageViewTintColor()
         }
     }
-    
-    private lazy var itemImage = UIImage(systemName: itemImageName)
     
     var indentLevel: Int = 0 {
         didSet {
@@ -78,11 +72,14 @@ final class ExpandableItemCell: UICollectionViewCell, ReuseIdentifiable {
     override var isHighlighted: Bool {
         didSet {
             configureChevronImageView()
+            updateSelection()
         }
     }
+    
     override var isSelected: Bool {
         didSet {
             configureChevronImageView()
+            updateSelection()
         }
     }
     
@@ -103,12 +100,24 @@ final class ExpandableItemCell: UICollectionViewCell, ReuseIdentifiable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: -
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        selectionView.frame = contentView.bounds
+    }
 }
 
 // MARK: - Cell Configuration
+
 extension ExpandableItemCell {
     
     func configure() {
+        selectionView.layer.cornerRadius = 5
+        contentView.addSubview(selectionView)
+        
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(chevronImageView)
         
@@ -128,8 +137,8 @@ extension ExpandableItemCell {
         subitemsLabel.textAlignment = .right
         containerView.addSubview(subitemsLabel)
         
-        typeImage.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(typeImage)
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(iconImageView)
         
         indentContraint = containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset)
         NSLayoutConstraint.activate([
@@ -138,12 +147,12 @@ extension ExpandableItemCell {
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            typeImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: inset),
-            typeImage.heightAnchor.constraint(equalToConstant: imageInset),
-            typeImage.widthAnchor.constraint(equalToConstant: imageInset),
-            typeImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: inset),
+            iconImageView.heightAnchor.constraint(equalToConstant: imageInset),
+            iconImageView.widthAnchor.constraint(equalToConstant: imageInset),
+            iconImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             
-            label.leadingAnchor.constraint(equalTo: typeImage.trailingAnchor, constant: inset),
+            label.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: inset),
             label.trailingAnchor.constraint(equalTo: subitemsLabel.leadingAnchor),
             label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             label.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -161,15 +170,15 @@ extension ExpandableItemCell {
     }
     
     func configureTypeImageView() {
-        typeImage.image = itemImage
-        typeImage.contentMode = .scaleAspectFit
+        iconImageView.image = image
+        iconImageView.contentMode = .scaleAspectFit
         
         updateTypeImageViewTintColor()
     }
     
     func updateTypeImageViewTintColor() {
         let highlighted = isHighlighted || isSelected
-        typeImage.tintColor = highlighted ? .gray : itemTintColor
+        iconImageView.tintColor = highlighted ? .gray : itemTintColor
     }
     
     func configureChevronImageView() {
@@ -213,5 +222,10 @@ extension ExpandableItemCell {
         } else {
             subitemsLabel.text = ""
         }
+    }
+    
+    func updateSelection() {
+        let selectionVisible: Bool = isHighlighted || isSelected
+        selectionView.backgroundColor = selectionVisible ? UIColor(white: 0.95, alpha: 1) : .clear
     }
 }
