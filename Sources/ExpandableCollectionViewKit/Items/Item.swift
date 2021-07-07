@@ -18,7 +18,6 @@ final public class Item: ExpandableItem {
     
     // MARK: - Properties
     
-    public private(set) var viewControllerType: UIViewController.Type?
     public private(set) var configuration: ((UIViewController) -> Void)?
     
     public private(set) var action: Action?
@@ -39,26 +38,14 @@ final public class Item: ExpandableItem {
     }
     
     public init(title: String,
-                action: Action? = nil,
-                viewControllerType: UIViewController.Type? = nil,
-                configuration: ((UIViewController) -> Void)? = nil) {
+                action: Action? = nil) {
         super.init(title: title)
         
         tintColor = defaultTintColor
         imageName = defaultImageName
-        
-        self.viewControllerType = viewControllerType
-        self.configuration = configuration
     }
     
     // MARK: - Methods
-    
-    @discardableResult
-    public func setViewControllerType(_ viewControllerType: UIViewController.Type, configuration: ((UIViewController) -> Void)? = nil) -> Self {
-        self.viewControllerType = viewControllerType
-        self.configuration = configuration
-        return self
-    }
     
     @discardableResult
     public func setAction(_ action: @escaping Action) -> Self {

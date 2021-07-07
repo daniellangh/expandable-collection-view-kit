@@ -41,7 +41,7 @@ final public class ExpandableCollectionViewManager: NSObject {
         }
     }
     public var sectionContentInsets: NSDirectionalEdgeInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
-    public var onCellTapHandler: ((IndexPath, UIViewController) -> Void)? = nil
+    public var onCellTapHandler: ((IndexPath, ExpandableItem) -> Void)? = nil
     
     public var unfoldAnimation: UnfoldAnimationType = .simple
     
@@ -275,13 +275,8 @@ extension ExpandableCollectionViewManager: UICollectionViewDelegate {
         } else if let item = menuItem as? Item {
             item.action?(indexPath, item.title)
             
-            if let viewControllerType = item.viewControllerType,
-                let onCellTapHandler = self.onCellTapHandler {
-                // Instantiate and apply optional configuration closure to the destination view controller
-                let destinationViewController = viewControllerType.init()
-                item.configuration?(destinationViewController)
-                
-                onCellTapHandler(indexPath, destinationViewController)
+            if let onCellTapHandler = self.onCellTapHandler {
+                onCellTapHandler(indexPath, item)
             }
         }
     }
