@@ -10,6 +10,10 @@ import Foundation
 
 public struct ExpandableItems {
     var items: [ExpandableItem] = []
+    
+    public init(items: [ExpandableItem]) {
+        self.items = items
+    }
 }
 
 @resultBuilder
