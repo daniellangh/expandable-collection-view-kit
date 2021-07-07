@@ -40,7 +40,7 @@ final public class ExpandableCollectionViewManager: NSObject {
             collectionView.setCollectionViewLayout(layout, animated: true)
         }
     }
-    public var sectionContentInsets: NSDirectionalEdgeInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+    public var sectionContentInsets: NSDirectionalEdgeInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
     public var onCellTapHandler: ((IndexPath, UIViewController) -> Void)? = nil
     
     public var unfoldAnimation: UnfoldAnimationType = .simple
