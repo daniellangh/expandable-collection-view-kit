@@ -226,6 +226,6 @@ extension ExpandableItemCell {
     
     func updateSelection() {
         let selectionVisible: Bool = isHighlighted || isSelected
-        selectionView.backgroundColor = selectionVisible ? UIColor(white: 0.95, alpha: 1) : .clear
+        selectionView.backgroundColor = selectionVisible ? UIColor(white: 0.9, alpha: 1) : .clear
     }
 }
