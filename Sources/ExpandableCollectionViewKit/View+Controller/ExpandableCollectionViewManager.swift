@@ -257,7 +257,6 @@ extension ExpandableCollectionViewManager {
 extension ExpandableCollectionViewManager: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let menuItem = dataSource.itemIdentifier(for: indexPath) else { return }
-        collectionView.deselectItem(at: indexPath, animated: true)
         
         if let folder = menuItem as? Folder {
             folder.action?(indexPath, folder.title, !folder.isExpanded)
