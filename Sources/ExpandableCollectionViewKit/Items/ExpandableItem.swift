@@ -113,14 +113,14 @@ public extension ExpandableItem {
     
     @objc
     @discardableResult
-    func setImage(systemName imageName: String) -> Self {
+    func setImage(systemName imageName: String?) -> Self {
         self.imageName = imageName
         return self
     }
 
     @objc
     @discardableResult
-    func setImage(_ image: UIImage) -> Self {
+    func setImage(_ image: UIImage?) -> Self {
         self.image = image
         return self
     }
