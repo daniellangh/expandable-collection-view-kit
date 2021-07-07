@@ -23,7 +23,6 @@ final public class Item: ExpandableItem {
     public private(set) var action: Action?
     
     private let defaultImageName = "circle.fill"
-    private let defaultTintColor = UIColor.systemTeal
     
     // MARK: - Initialisers
     
@@ -32,16 +31,12 @@ final public class Item: ExpandableItem {
         super.init(title: title)
         
         self.action = action
-        
-        tintColor = defaultTintColor
         imageName = defaultImageName
     }
     
     public init(title: String,
                 action: Action? = nil) {
         super.init(title: title)
-        
-        tintColor = defaultTintColor
         imageName = defaultImageName
     }
     
