@@ -26,8 +26,9 @@ public class ExpandableItem: Hashable {
     public var title: String
     public var indentLevel: Int
     
-    public var imageName: String? = nil
-    public var tintColor: UIColor = .systemGray
+    public var imageName: String?
+    public var image: UIImage?
+    public var tintColor: UIColor?
 
     // MARK: - Private propeties
     
@@ -116,10 +117,17 @@ public extension ExpandableItem {
         self.imageName = imageName
         return self
     }
+
+    @objc
+    @discardableResult
+    func setImage(_ image: UIImage) -> Self {
+        self.image = image
+        return self
+    }
     
     @objc
     @discardableResult
-    func setTintColor(_ tintColor: UIColor) -> Self {
+    func setTintColor(_ tintColor: UIColor?) -> Self {
         self.tintColor = tintColor
         return self
     }
