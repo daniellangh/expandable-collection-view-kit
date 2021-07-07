@@ -26,7 +26,7 @@ final public class ExpandableCollectionViewManager: NSObject {
     // MARK: - Private properties
     
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, ExpandableItem>! = nil
-    private(set) lazy var collectionView: UICollectionView! = nil
+    private(set) public lazy var collectionView: UICollectionView! = nil
     private let parentViewController: UIViewController
     
     private lazy var menuItems: [ExpandableItem] = []
