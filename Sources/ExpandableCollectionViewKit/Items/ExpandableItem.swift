@@ -29,6 +29,8 @@ public class ExpandableItem: Hashable {
     public var imageName: String?
     public var image: UIImage?
     public var tintColor: UIColor?
+    
+    public var userInfo: Any?
 
     // MARK: - Private propeties
     
